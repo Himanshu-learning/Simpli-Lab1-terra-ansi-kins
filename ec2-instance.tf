@@ -1,4 +1,3 @@
-
 resource "aws_instance" "web" {
   ami           = "ami-0f58b397bc5c1f2e8"
   instance_type = "t2.micro"
@@ -13,9 +12,7 @@ resource "aws_instance" "web" {
   root_block_device {
     volume_size = 8
   }
-
 }
-
 
 resource "aws_key_pair" "deployer" {
   key_name   = "himanshu"
@@ -25,7 +22,6 @@ resource "aws_key_pair" "deployer" {
 output "keyname" {
   value = "${aws_key_pair.deployer.key_name}"
 }
-
 
 resource "aws_security_group" "SMP1510_SG" {
   name        = "Lab1-Ansible-Jenkins"
@@ -39,7 +35,6 @@ resource "aws_security_group" "SMP1510_SG" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
-
   ingress {
     description      = "HTTP"
     from_port        = 80
@@ -48,7 +43,6 @@ resource "aws_security_group" "SMP1510_SG" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
-
   ingress {
     description      = "RDP"
     from_port        = 3389
@@ -57,7 +51,6 @@ resource "aws_security_group" "SMP1510_SG" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
-
   ingress {
     description      = "SSH"
     from_port        = 22
@@ -74,8 +67,6 @@ resource "aws_security_group" "SMP1510_SG" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
-
-
   egress {
     from_port        = 0
     to_port          = 0
@@ -83,7 +74,6 @@ resource "aws_security_group" "SMP1510_SG" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
-
   tags = {
     Name = "SG-Ansible-Jenkins"
   }
