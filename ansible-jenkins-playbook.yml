@@ -1,0 +1,44 @@
+---
+- name: Install jenkins
+  hosts: localhost
+  become: yes
+  become_user: root
+
+  tasks:
+  - name: Updating packages to latest version
+    apt:
+      name: "*"
+      state: latest
+
+  - name: Downloading stable Jenkins key
+    ansible.builtin.get_url:
+      url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+      dest: /usr/share/keyrings/jenkins-keyring.asc
+        
+  - name: Adding Jenkins repository
+    ansible.builtin.apt_repository:
+      repo: deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/
+      state: present
+      filename: jenkins.list
+
+  - name: Updating Packages again to latest version
+    apt:
+      name: "*"
+      state: latest
+
+  - name: Installing FontConfig
+    shell: apt install fontconfig -y    
+
+  - name: Installing JAVA
+    shell: apt install fontconfig openjdk-17-jre -y  
+
+  - name: Now Installing Jenkins packages
+    ansible.builtin.apt:
+      name: jenkins
+      state: present  
+
+  - name: Starting Jenkins Service
+    ansible.builtin.systemd:
+      state: started
+      name: jenkins
+      enabled: yes    
