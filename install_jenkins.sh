@@ -8,6 +8,6 @@ sudo apt install ansible -y
 sudo apt install git -y
 mkdir Ansible && cd Ansible
 pwd
-git clone https://github.com/Aj7Ay/ANSIBLE.git
-cd SimpliLearn-Lab1
+git clone https://github.com/Himanshu-learning/Simpli-Lab1-terra-ansi-kins.git
+cd Simpli-Lab1-terra-ansi-kins
 ansible-playbook -i localhost ansible-jenkins-playbook.yml
